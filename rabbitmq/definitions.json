@@ -1,0 +1,66 @@
+{
+  "users": [
+    {
+      "name": "admin",
+      "password_hash": "wnm4T2xQed2b/2OFu90/pgDMcoq2djIlccgDT57IJviMiUG+",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "admin",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "global_parameters": [
+    {
+      "name": "internal_cluster_id",
+      "value": "rabbitmq-cluster-id-K1iFP-1R15xyp-Ka99hDyw"
+    }
+  ],
+  "queues": [
+    {
+      "name": "pdf.generate",
+      "vhost": "/",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-queue-type": "classic"
+      }
+    }
+  ],
+  "exchanges": [
+    {
+      "name": "pdf.generate",
+      "vhost": "/",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {
+        
+      }
+    }
+  ],
+  "bindings": [
+    {
+      "source": "pdf.generate",
+      "vhost": "/",
+      "destination": "pdf.generate",
+      "destination_type": "queue",
+      "routing_key": "",
+      "arguments": {
+        
+      }
+    }
+  ]
+}
