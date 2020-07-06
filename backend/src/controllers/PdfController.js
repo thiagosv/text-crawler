@@ -15,7 +15,7 @@ module.exports = {
                     .then((novel_cp) => {
                         amqp.then(conn => conn.createChannel())
                             .then(channel => {
-                                channel.publish('pdf.generate', '', Buffer.from(JSON.stringify({ ...novel_cp })));
+                                channel.publish(process.env.EXCHANGE, '', Buffer.from(JSON.stringify({ ...novel_cp })));
                             })
                     }).catch((err) => res.json(err).end());
             }
