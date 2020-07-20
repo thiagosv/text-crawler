@@ -14,26 +14,8 @@ function make(webContent, request) {
     const fileName = fileUtils.getFileName(request.file_name);
     const htmlContent = `<div style='font-size: ${request.site.height_text}px;'>${webContent}</div>`;
 
-    const getFont = font => fs.readFileSync(__dirname + `/fonts/${font}.ttf`);
     const getPdfMake = () => {
-        return new pdfmake({
-            Roboto: {
-                normal: getFont('Roboto-Regular'),
-                bold: getFont('Roboto-Bold'),
-                italics: getFont('Roboto-Italic'),
-                bolditalics: getFont('Roboto-BoldItalic'),
-                light: getFont('Roboto-Light'),
-                lightItalic: getFont('Roboto-LightItalic'),
-                black: getFont('Roboto-Black'),
-                blackItalic: getFont('Roboto-BlackItalic'),
-            },
-            "comic sans ms', sans-serif": {
-                normal: getFont('Comic Sans MS'),
-                bold: getFont('Comic Sans MS'),
-                italics: getFont('Comic Sans MS'),
-                bolditalics: getFont('Comic Sans MS'),
-            }
-        });
+        return new pdfmake(getFonts());
     }
 
     try {
@@ -53,11 +35,64 @@ function make(webContent, request) {
                 console.log(`${fileName} gerado com sucesso!`);
             });
     } catch (err) {
-        // fs.writeFile(fileName, htmlContent, [], ()=>{});
+        //fs.writeFile(fileName, htmlContent, [], ()=>{});
         console.log(err);
         console.log(`Erro ao gerar ${fileName}`)
     }
 
+}
+
+function getFonts(){
+    const getFont = font => fs.readFileSync(__dirname + `/fonts/${font}.ttf`);
+    
+    return {
+        Roboto: {
+            normal: getFont('Roboto-Regular'),
+            bold: getFont('Roboto-Bold'),
+            italics: getFont('Roboto-Italic'),
+            bolditalics: getFont('Roboto-BoldItalic'),
+            light: getFont('Roboto-Light'),
+            lightItalic: getFont('Roboto-LightItalic'),
+            black: getFont('Roboto-Black'),
+            blackItalic: getFont('Roboto-BlackItalic'),
+        },
+        "comic sans ms', sans-serif": {
+            normal: getFont('Comic Sans MS'),
+            bold: getFont('Comic Sans MS'),
+            italics: getFont('Comic Sans MS'),
+            bolditalics: getFont('Comic Sans MS'),
+        },
+        "noto serif, serif": {
+            normal: getFont('Comic Sans MS'),
+            bold: getFont('Comic Sans MS'),
+            italics: getFont('Comic Sans MS'),
+            bolditalics: getFont('Comic Sans MS'),
+        },
+        "times new roman, serif": {
+            normal: getFont('times new roman'),
+            bold: getFont('times new roman bold'),
+            italics: getFont('times new roman italic'),
+            bolditalics: getFont('times new roman bold italic'),
+        },
+        "nsimsun": {
+            normal: getFont('simsun'),
+            bold: getFont('simsun'),
+            italics: getFont('simsun'),
+            bolditalics: getFont('simsun'),
+        },
+        "noto sans lisu": {
+            normal: getFont('NotoSans-Regular'),
+            bold: getFont('NotoSans-Bold'),
+            italics: getFont('NotoSans-Italic'),
+            bolditalics: getFont('NotoSans-BoldItalic'),
+        },
+        "noto sans lisu, sans-serif": {
+            normal: getFont('NotoSans-Regular'),
+            bold: getFont('NotoSans-Bold'),
+            italics: getFont('NotoSans-Italic'),
+            bolditalics: getFont('NotoSans-BoldItalic'),
+        }
+    }
 }
 
 module.exports = make;

@@ -14,7 +14,6 @@ function getWebContent(request, callback) {
             callback($(request.site.selector_text).html(), request);
         })
         .catch((err) => {
-            console.log(err);
             console.log(err.statusCode);
             console.log(`Erro ao recuperar informações do URL: ${request.url}`);
         });
