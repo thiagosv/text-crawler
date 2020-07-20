@@ -12,7 +12,7 @@ const fileUtils = require('../utils/fileUtils');
 function make(webContent, request) {
 
     const fileName = fileUtils.getFileName(request.file_name);
-    const htmlContent = `<div style='font-size: ${request.site.height_text}px;'>${webContent}</div>`;
+    const htmlContent = `<div style="font-size: ${request.site.height_text}px;">` + replaceFontSize(webContent, request.site.height_text) + '</div>';
 
     const getPdfMake = () => {
         return new pdfmake(getFonts());
@@ -32,19 +32,26 @@ function make(webContent, request) {
             .then(pdf => {
                 pdf.pipe(fs.createWriteStream(fileName))
                 pdf.end();
+            })
+            .then(() => {
                 console.log(`${fileName} gerado com sucesso!`);
-            });
+            })
+            .catch(err => console.log(err));
     } catch (err) {
         //fs.writeFile(fileName, htmlContent, [], ()=>{});
         console.log(err);
-        console.log(`Erro ao gerar ${fileName}`)
+        console.log(`Erro ao gerar ${fileName}`);
     }
 
 }
 
-function getFonts(){
+function replaceFontSize(webContent, fontSize){
+    return webContent.replace(/font-size: [a-zA-Z0-9]{1,}(|px)/gm, `font-size: ${fontSize}px`);
+}
+
+function getFonts() {
     const getFont = font => fs.readFileSync(__dirname + `/fonts/${font}.ttf`);
-    
+
     return {
         Roboto: {
             normal: getFont('Roboto-Regular'),
