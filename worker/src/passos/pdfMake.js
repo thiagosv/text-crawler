@@ -12,7 +12,7 @@ const fileUtils = require('../utils/fileUtils');
 function make(webContent, request) {
 
     const fileName = fileUtils.getFileName(request.file_name);
-    const htmlContent = `<div style="font-size: ${request.site.height_text}px;">` + replaceFontSize(webContent, request.site.height_text) + '</div>';
+    const htmlContent = `<div style="font-size: ${request.site.height_text}px; text-align: justify !important; font-family: 'Roboto'">` + replaceFontSize(replaceFont(webContent), request.site.height_text) + '</div>';
 
     const getPdfMake = () => {
         return new pdfmake(getFonts());
@@ -49,11 +49,15 @@ function replaceFontSize(webContent, fontSize){
     return webContent.replace(/font-size: [a-zA-Z0-9]{1,}(|px)/gm, `font-size: ${fontSize}px`);
 }
 
+function replaceFont(webContent){
+    return webContent.replace(/font-family: [a-zA-Z', ]{1,};/gm, 'font-size: Roboto');
+}
+
 function getFonts() {
     const getFont = font => fs.readFileSync(__dirname + `/fonts/${font}.ttf`);
 
     return {
-        Roboto: {
+        roboto: {
             normal: getFont('Roboto-Regular'),
             bold: getFont('Roboto-Bold'),
             italics: getFont('Roboto-Italic'),
@@ -62,68 +66,6 @@ function getFonts() {
             lightItalic: getFont('Roboto-LightItalic'),
             black: getFont('Roboto-Black'),
             blackItalic: getFont('Roboto-BlackItalic'),
-        },
-        "roboto, arial, sans-serif": {
-            normal: getFont('Roboto-Regular'),
-            bold: getFont('Roboto-Bold'),
-            italics: getFont('Roboto-Italic'),
-            bolditalics: getFont('Roboto-BoldItalic'),
-            light: getFont('Roboto-Light'),
-            lightItalic: getFont('Roboto-LightItalic'),
-            black: getFont('Roboto-Black'),
-            blackItalic: getFont('Roboto-BlackItalic'),
-        },
-        "courier new', courier, monospace": {
-            normal: getFont('Roboto-Regular'),
-            bold: getFont('Roboto-Bold'),
-            italics: getFont('Roboto-Italic'),
-            bolditalics: getFont('Roboto-BoldItalic'),
-            light: getFont('Roboto-Light'),
-            lightItalic: getFont('Roboto-LightItalic'),
-            black: getFont('Roboto-Black'),
-            blackItalic: getFont('Roboto-BlackItalic'),
-        },
-        "comic sans ms', sans-serif": {
-            normal: getFont('Comic Sans MS'),
-            bold: getFont('Comic Sans MS'),
-            italics: getFont('Comic Sans MS'),
-            bolditalics: getFont('Comic Sans MS'),
-        },
-        "noto serif', serif": {
-            normal: getFont('Comic Sans MS'),
-            bold: getFont('Comic Sans MS'),
-            italics: getFont('Comic Sans MS'),
-            bolditalics: getFont('Comic Sans MS'),
-        },
-        "noto serif, serif": {
-            normal: getFont('Comic Sans MS'),
-            bold: getFont('Comic Sans MS'),
-            italics: getFont('Comic Sans MS'),
-            bolditalics: getFont('Comic Sans MS'),
-        },
-        "times new roman, serif": {
-            normal: getFont('times new roman'),
-            bold: getFont('times new roman bold'),
-            italics: getFont('times new roman italic'),
-            bolditalics: getFont('times new roman bold italic'),
-        },
-        "nsimsun": {
-            normal: getFont('simsun'),
-            bold: getFont('simsun'),
-            italics: getFont('simsun'),
-            bolditalics: getFont('simsun'),
-        },
-        "noto sans lisu": {
-            normal: getFont('NotoSans-Regular'),
-            bold: getFont('NotoSans-Bold'),
-            italics: getFont('NotoSans-Italic'),
-            bolditalics: getFont('NotoSans-BoldItalic'),
-        },
-        "noto sans lisu, sans-serif": {
-            normal: getFont('NotoSans-Regular'),
-            bold: getFont('NotoSans-Bold'),
-            italics: getFont('NotoSans-Italic'),
-            bolditalics: getFont('NotoSans-BoldItalic'),
         }
     }
 }
