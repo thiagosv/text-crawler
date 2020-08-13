@@ -42,6 +42,8 @@ services:
     restart: always
     networks:
       - novel_pdf
+    volumes:
+      - ./.docker/mongo-data:/data/db
   mongo-express:
     image: mongo-express
     environment:
