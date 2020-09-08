@@ -54,7 +54,7 @@ async function replace(webContent, request) {
 }
 
 function replaceFontSize(webContent, fontSize) {
-    return webContent.replace(/font-size: [a-zA-Z0-9]{1,}(|px)/gm, `font-size: ${fontSize}px`);
+    return webContent.replace(/font-size: [a-zA-Z0-9.]{1,}(|px)/gm, `font-size: ${fontSize}px`);
 }
 
 function replaceFont(webContent) {
