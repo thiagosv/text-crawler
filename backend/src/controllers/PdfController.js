@@ -4,6 +4,8 @@ const Novel = require('../models/Novel');
 module.exports = {
     store(req, res) {
         const { novel_id, initial, final } = req.body;
+        if(initial > final)
+            return res.json({message: "O capitulo inicial não pode ser maior que o final!"}).status(400);
         Novel.findOne({ _id: novel_id }).populate('site').then(novel => {
             for (let i = initial; i <= final; i++) {
                 Promise.resolve({ ...novel._doc })
