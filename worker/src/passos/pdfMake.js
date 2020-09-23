@@ -49,20 +49,25 @@ async function replace(webContent, request) {
     return Promise.resolve(replaceFont(webContent))
         .then(webContent => replaceFontSize(webContent, request.site.height_text))
         .then(webContent => replaceTextAlign(webContent))
+        .then(webContent => replaceColor(webContent))
         .then(webContent => removeImages(webContent))
         .then(webContent => removeSpans(webContent));
 }
 
 function replaceFontSize(webContent, fontSize) {
-    return webContent.replace(/font-size: [a-zA-Z0-9.]{1,}(|px)/gm, `font-size: ${fontSize}px`);
+    return webContent.replace(/font-size:[a-zA-Z0-9. ]{1,}(|px)/gm, `font-size: ${fontSize}px`);
 }
 
 function replaceFont(webContent) {
-    return webContent.replace(/font-family: [a-zA-Z'"\-, \;\&]{1,};/gm, "font-family: Roboto;");
+    return webContent.replace(/font-family:[a-zA-Z0-9'"\-, \;\&]{1,};/gm, "font-family: Roboto;");
 }
 
 function replaceTextAlign(webContent) {
-    return webContent.replace(/text-align: [a-zA-Z]{1,};/gm, "text-align: justify;");
+    return webContent.replace(/text-align:[a-zA-Z ]{1,};/gm, "text-align: justify;");
+}
+
+function replaceColor(webContent) {
+    return webContent.replace(/color:[a-zA-Z0-9 #]{1,};/gm, "color: black;");
 }
 
 function removeImages(webContent) {

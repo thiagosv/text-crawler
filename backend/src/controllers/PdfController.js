@@ -10,9 +10,9 @@ module.exports = {
             for (let i = initial; i <= final; i++) {
                 Promise.resolve({ ...novel._doc })
                     .then((novel_cp) => {
-                        i = (i < 10 ? '0' + i : i);
-                        novel_cp.url = novel_cp.url.replace(">page<", i);
-                        novel_cp.current = i;
+                        let page = (i + "").padStart(2, '0');
+                        novel_cp.url = novel_cp.url.replace(">page<", page);
+                        novel_cp.current = page;
                         return novel_cp;
                     })
                     .then((novel_cp) => {
