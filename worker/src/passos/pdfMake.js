@@ -51,7 +51,8 @@ async function replace(webContent, request) {
         .then(webContent => replaceTextAlign(webContent))
         .then(webContent => replaceColor(webContent))
         .then(webContent => removeImages(webContent))
-        .then(webContent => removeSpans(webContent));
+        .then(webContent => removeSpans(webContent))
+        .then(webContent => removeLineHeight(webContent));
 }
 
 function replaceFontSize(webContent, fontSize) {
@@ -78,6 +79,10 @@ function removeImages(webContent) {
 function removeSpans(webContent) {
     return webContent.replace(/<span[a-zA-Z0-9:.\/\-"'&;= %]{1,}>/gmi, '')
         .replace(/<\/span>/gmi, '');
+}
+
+function removeLineHeight(webContent) {
+    return webContent.replace(/line-height:[a-zA-Z0-9. ]{1,};/gm, '');
 }
 
 function getFonts() {
