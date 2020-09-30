@@ -1,6 +1,8 @@
 const rp = require('request-promise');
 const cheerio = require('cheerio');
 
+const { publish } = require("../passos/queue");
+
 function getWebContent(request, callback) {
     const options = {
         uri: request.url,
@@ -16,6 +18,9 @@ function getWebContent(request, callback) {
         .catch((err) => {
             console.log(err.statusCode);
             console.log(`Erro ao recuperar informações do URL: ${request.url}`);
+            if (err.statusCode == 500) {
+                setTimeout(() => publish(request), 1000);
+            }
         });
 }
 

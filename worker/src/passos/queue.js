@@ -10,6 +10,15 @@ async function consume(callback) {
         .catch(err => console.log(err));
 }
 
+async function publish(message) {
+    amqp.then(conn => conn.createChannel())
+        .then(channel => {
+            channel.publish(process.env.EXCHANGE, '', Buffer.from(JSON.stringify({ ...message })));
+        })
+        .catch(err => console.log(err));
+}
+
 module.exports = {
-    consume
+    consume,
+    publish
 };
