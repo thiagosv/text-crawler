@@ -11,7 +11,7 @@ const fileUtils = require('../utils/fileUtils');
 
 async function make(webContent, request) {
 
-    const fileName = fileUtils.getFileName(request.file_name);
+    const fileName = fileUtils.getFileName(request.prefix_file, request.file_name);
     const htmlContent = `<div style="font-size: ${request.site.height_text}px; text-align: justify;">` + await replace(webContent, request) + '</div>';
 
     const getPdfMake = () => {

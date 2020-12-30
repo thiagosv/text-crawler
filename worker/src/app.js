@@ -13,7 +13,7 @@ async function start() {
 
     passos.queue.consume((request) => {
         request.file_name = setFilename(request);
-        if (!fileUtils.isFile(request.file_name)) {
+        if (!fileUtils.isFile(request.prefix_file, request.file_name)) {
             passos.webContent(request, passos.pdfMake);
         } else {
             console.log(`${request.file_name} já existe!`);

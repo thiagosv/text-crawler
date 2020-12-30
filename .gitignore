@@ -1,2 +1,4 @@
 /backend/node_modules
 /worker/node_modules
+/pdf/*/*.pdf
+/.docker/mongo-data
