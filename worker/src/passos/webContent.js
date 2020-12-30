@@ -18,8 +18,9 @@ function getWebContent(request, callback) {
         .catch((err) => {
             console.log(err.statusCode);
             console.log(`Erro ao recuperar informações do URL: ${request.url}`);
-            if (err.statusCode == 500) {
-                setTimeout(() => publish(request), 1000);
+            if (err.statusCode === 500 || err.statusCode === "500" || err.statusCode == "500" || err.statusCode == 500) {
+                console.log("erro status 500");
+                publish(request);
             }
         });
 }

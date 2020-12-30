@@ -48,11 +48,11 @@ async function make(webContent, request) {
 async function replace(webContent, request) {
     return Promise.resolve(replaceFont(webContent))
         .then(webContent => replaceFontSize(webContent, request.site.height_text))
-        .then(webContent => replaceTextAlign(webContent))
-        .then(webContent => replaceColor(webContent))
-        .then(webContent => removeImages(webContent))
-        .then(webContent => removeSpans(webContent))
-        .then(webContent => removeLineHeight(webContent));
+        .then(replaceTextAlign)
+        .then(replaceColor)
+        .then(removeImages)
+        .then(removeSpans)
+        .then(removeLineHeight);
 }
 
 function replaceFontSize(webContent, fontSize) {

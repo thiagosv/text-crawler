@@ -1,16 +1,16 @@
 const amqp = require('amqplib').connect(`amqp://${process.env.RABBITMQ_URL}`);
 
-async function consume(callback) {
+function consume(callback) {
     amqp.then(conn => conn.createChannel())
         .then(channel => {
-            channel.consume(process.env.QUEUE, async (message) => {
+            channel.consume(process.env.QUEUE, (message) => {
                 callback(JSON.parse(message.content.toString()));
             }, { noAck: true });
         })
         .catch(err => console.log(err));
 }
 
-async function publish(message) {
+function publish(message) {
     amqp.then(conn => conn.createChannel())
         .then(channel => {
             channel.publish(process.env.EXCHANGE, '', Buffer.from(JSON.stringify({ ...message })));
