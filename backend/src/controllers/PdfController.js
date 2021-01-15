@@ -11,7 +11,7 @@ const store = (req, res) => {
                 for (let page = initial, timeOut = 1; page <= final; page++, timeOut++) {
                     Promise.resolve({ ...novel._doc })
                         .then(novel => resolveNovePage(novel, page))
-                        .then(novel => publishPdfNovel(novel, channel, timeOut))
+                        .then(novel => novel.site.timeout ? publishPdfNovelWithTimeOut(novel, channel, timeOut) : publishPdfNovel(novel, channel))
                         .catch(console.log);
                 }
                 res.json({ message: 'ok' }).end();
@@ -25,10 +25,14 @@ const store = (req, res) => {
         return novel;
     }
 
-    const publishPdfNovel = (novel, channel, timeOut) => {
+    const publishPdfNovelWithTimeOut = (novel, channel, timeOut) => {
         setTimeout(() => {
             channel.publish(process.env.EXCHANGE, '', Buffer.from(JSON.stringify({ ...novel })));
         }, parseInt(timeOut + "000"));
+    }
+
+    const publishPdfNovel = (novel, channel) => {
+        channel.publish(process.env.EXCHANGE, '', Buffer.from(JSON.stringify({ ...novel })));
     }
 }
 

@@ -1,5 +1,5 @@
 const fs = require('fs');
-const contentPath = './pdf/';
+const contentPath = './pdf';
 
 const getPath = () => contentPath;
 const getFileName = (fileDir, fileName) => `${contentPath}/${fileDir}/${fileName}.pdf`;

@@ -9,6 +9,10 @@ const SiteSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Seletor do texto não informado']
     },
+    timeout: {
+        type: Boolean,
+        required: [true, 'Campo timeout (true/false) não definido']
+    },
     height_text: Number
 });
 
