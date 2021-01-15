@@ -27,7 +27,7 @@ const store = (req, res) => {
 
     const publishPdfNovelWithTimeOut = (novel, channel, timeOut) => {
         setTimeout(() => {
-            channel.publish(process.env.EXCHANGE, '', Buffer.from(JSON.stringify({ ...novel })));
+            publishPdfNovel(novel, channel)
         }, parseInt(timeOut + "000"));
     }
 
