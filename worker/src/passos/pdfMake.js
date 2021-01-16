@@ -38,7 +38,7 @@ async function make(webContent, request) {
             })
             .catch(err => console.log(err));
     } catch (err) {
-        // fs.writeFile(fileName, htmlContent, [], () => { });
+        fs.writeFile(fileName, htmlContent, [], () => { });
         console.log(err);
         console.log(`Erro ao gerar ${fileName}`);
     }
@@ -52,7 +52,10 @@ async function replace(webContent, request) {
         .then(replaceColor)
         .then(removeImages)
         .then(removeSpans)
-        .then(removeLineHeight);
+        .then(removeLineHeight)
+        .then(removeScript)
+        .then(removeStyle)
+        .then(removeAdsGoogle);
 }
 
 function replaceFontSize(webContent, fontSize) {
@@ -83,6 +86,19 @@ function removeSpans(webContent) {
 
 function removeLineHeight(webContent) {
     return webContent.replace(/line-height:[a-zA-Z0-9. ]{1,};/gm, '');
+}
+
+function removeScript(webContent) {
+    return webContent.replace(/(<script>|<script .*>)(\n|)(.*|)(\n|)<\/script>/gm, '');
+}
+
+function removeStyle(webContent) {
+    return webContent.replace(/(<style>|<style .*>)(\n|)(.*|)(\n|)<\/style>/gm, '');
+}
+
+function removeAdsGoogle(webContent) {
+    return webContent.replace(/(<ins .*>)(\n|)(.*|)(\n|)<\/ins>/gm, '')
+                    .replace(/id=".{100,}")/gm, '');
 }
 
 function getFonts() {
