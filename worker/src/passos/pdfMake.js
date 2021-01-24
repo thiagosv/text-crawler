@@ -75,8 +75,8 @@ function replaceColor(webContent) {
 }
 
 function removeImages(webContent) {
-    return webContent.replace(/<img[a-zA-Z0-9:.\/\-"\= ]{1,}>/gmi, '')
-        .replace(/<img[a-zA-Z0-9:.\/\-"\= ]{1,}]\/>/gmi, '');
+    return webContent.replace(/<img.*(\n|).*>/gmi, '')
+        .replace(/<img.*(\n|).*\/>/gmi, '');
 }
 
 function removeSpans(webContent) {
@@ -98,7 +98,7 @@ function removeStyle(webContent) {
 
 function removeAdsGoogle(webContent) {
     return webContent.replace(/(<ins .*>)(\n|)(.*|)(\n|)<\/ins>/gm, '')
-                    .replace(/id=".{100,}")/gm, '');
+                    .replace(/id=".{100,}"/gm, '');
 }
 
 function getFonts() {
