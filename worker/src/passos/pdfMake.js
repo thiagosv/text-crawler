@@ -89,16 +89,15 @@ function removeLineHeight(webContent) {
 }
 
 function removeScript(webContent) {
-    return webContent.replace(/(<script>|<script .*>)(\n|)(.*|)(\n|)<\/script>/gm, '');
+    return webContent.replace(/(<script>)(\n|)(.*|)(\n|)<\/script>/gm, '');
 }
 
 function removeStyle(webContent) {
-    return webContent.replace(/(<style>|<style .*>)(\n|)(.*|)(\n|)<\/style>/gm, '');
+    return webContent.replace(/(<style>)(\n|)(.*|)(\n|)<\/style>/gm, '');
 }
 
 function removeAdsGoogle(webContent) {
-    return webContent.replace(/(<ins .*>)(\n|)(.*|)(\n|)<\/ins>/gm, '')
-                    .replace(/id=".{100,}"/gm, '');
+    return webContent.replace(/id="[a-zA-Z0-9. -]{100,}"/gm, '');
 }
 
 function getFonts() {
