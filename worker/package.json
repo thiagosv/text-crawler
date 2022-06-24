@@ -9,7 +9,7 @@
     "dotenv-defaults": "^2.0.0",
     "fs": "^0.0.1-security",
     "html-to-pdfmake": "^2.0.8",
-    "jsdom": "^16.3.0",
+    "jsdom": "^16.5.0",
     "nodemon": "^2.0.4",
     "pdfmake": "^0.1.66",
     "request": "^2.88.2",
